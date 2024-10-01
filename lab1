@@ -1,0 +1,44 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[] numbers = { 3, 3, 4, 2, 4, 4, 4, 4, 5 };
+        int? majorityElement = FindMajorityElement(numbers);
+
+        if (majorityElement.HasValue)
+        {
+            Console.WriteLine($"Мажоритарное число: {majorityElement.Value}");
+        }
+        else
+        {
+            Console.WriteLine("Мажоритарное число отсутствует.");
+        }
+    }
+
+    static int? FindMajorityElement(int[] nums)
+    {
+        int count = 0;
+        int candidate = 0;
+
+        foreach (var num in nums)
+        {
+            if (count == 0)
+            {
+                candidate = num;
+            }
+            count += (num == candidate) ? 1 : -1;
+        }
+
+        count = 0;
+        foreach (var num in nums)
+        {
+            if (num == candidate)
+            {
+                count++;
+            }
+        }
+        return (count > nums.Length / 2) ? candidate : (int?)null;
+    }
+}
